@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage>{
 
   String _email, _password;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,5 +47,10 @@ class LoginPageState extends State<LoginPage>{
         ),
       ),
     );
+  }
+
+  void signIn(){
+    final formState = _formKey.currentState;
+    if(formState.validate() == true) {}
   }
 }

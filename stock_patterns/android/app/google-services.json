@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "815023315936",
+    "firebase_url": "https://flutterstockpatternsprototype.firebaseio.com",
+    "project_id": "flutterstockpatternsprototype",
+    "storage_bucket": "flutterstockpatternsprototype.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815023315936:android:c5a7ad7d174f5e284da985",
+        "android_client_info": {
+          "package_name": "com.example.stock_patterns"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815023315936-gchu8gt68k529bics83fftkrhavpsdd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASa-z-HdD1-BCtHtvysKMEzQ8R6kiZGyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815023315936-gchu8gt68k529bics83fftkrhavpsdd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
