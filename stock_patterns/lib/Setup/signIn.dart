@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:stock_patterns/Pages/home.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   LoginPageState createState() => new LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage>{
-
+class LoginPageState extends State<LoginPage> {
   String _email, _password;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -18,11 +18,13 @@ class LoginPageState extends State<LoginPage>{
         title: Text('Sign in'),
       ),
       body: Form(
+        key: _formKey,
         child: Column(
           children: <Widget>[
             TextFormField(
-              validator: (input) { //TODO: check if email is correct
-                if(input.isEmpty) {
+              validator: (input) {
+                //TODO: check if email is correct
+                if (input.isEmpty) {
                   return 'Please type an email';
                 }
               },
@@ -30,8 +32,9 @@ class LoginPageState extends State<LoginPage>{
               decoration: InputDecoration(labelText: 'Email'),
             ),
             TextFormField(
-              validator: (input) { //TODO: check if password is strong enough (if needed)
-                if(input.length < 6) {
+              validator: (input) {
+                //TODO: check if password is strong enough (if needed)
+                if (input.length < 6) {
                   return 'Your Password needs to be atleast 6 characters';
                 }
               },
@@ -40,7 +43,7 @@ class LoginPageState extends State<LoginPage>{
               obscureText: true,
             ),
             RaisedButton(
-              onPressed: () {},
+              onPressed: signIn,
               child: Text('Sign in'),
             )
           ],
@@ -49,8 +52,18 @@ class LoginPageState extends State<LoginPage>{
     );
   }
 
-  void signIn(){
+  Future<void> signIn() async {
     final formState = _formKey.currentState;
-    if(formState.validate() == true) {}
+    if (formState.validate() == true) {
+      formState.save(); //will call onSaved to store email, password
+      try {
+        FirebaseUser user = (await FirebaseAuth.instance
+                .signInWithEmailAndPassword(email: _email, password: _password))
+            .user;
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      } catch (e) {
+        print(e.message);
+      }
+    }
   }
 }
