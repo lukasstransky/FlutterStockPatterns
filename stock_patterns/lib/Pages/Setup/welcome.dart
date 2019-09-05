@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stock_patterns/Pages/Setup/signIn.dart';
+import 'package:stock_patterns/Pages/Setup/signUp.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _WelcomePageState extends State<WelcomePage> {
              child: Text('Sign in'),
            ),
            RaisedButton(
-             onPressed: () {},
+             onPressed: navigateToSignUp,
              child: Text('Sign up'),
            )
          ],
@@ -31,11 +32,11 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   void navigateToSignIn(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage(), fullscreenDialog: true));
   }
 
   void navigateToSignUp(){
-
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage(), fullscreenDialog: true));
   }
 
 }
