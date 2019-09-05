@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stock_patterns/Pages/Setup/signIn.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _WelcomePageState extends State<WelcomePage> {
          crossAxisAlignment: CrossAxisAlignment.stretch,
          children: <Widget>[
            RaisedButton(
-             onPressed: () {},
+             onPressed: navigateToSignIn,
              child: Text('Sign in'),
            ),
            RaisedButton(
@@ -28,4 +29,13 @@ class _WelcomePageState extends State<WelcomePage> {
        ),
     );
   }
+
+  void navigateToSignIn(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
+  void navigateToSignUp(){
+
+  }
+
 }
