@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_patterns/Pages/Setup/signIn.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -61,6 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 .createUserWithEmailAndPassword(email: _email, password: _password))
             .user;
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+        Firestore.instance.collection('users').document().setData({'email': _email});
       } catch (e) {
         print(e.message);
       }
