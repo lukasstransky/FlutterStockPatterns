@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AddStockAndPatterns extends StatefulWidget {
@@ -7,7 +9,7 @@ class AddStockAndPatterns extends StatefulWidget {
 
 class _AddStockAndPatternsState extends State<AddStockAndPatterns> {
   String dropdownValue = 'AAPL';
-  Map<String, bool> values = {
+  Map<String, bool> patternsValues = {
     'Muster 1': false,
     'Muster 2': false,
     'Muster 3': false
@@ -41,13 +43,13 @@ class _AddStockAndPatternsState extends State<AddStockAndPatterns> {
             ],
           ),
           Column(
-            children: values.keys.map((String key) {
+            children: patternsValues.keys.map((String key) {
               return new CheckboxListTile(
                 title: new Text(key),
-                value: values[key],
+                value: patternsValues[key],
                 onChanged: (bool value) {
                   setState(() {
-                    values[key] = value;
+                    patternsValues[key] = value;
                   });
                 },
               );
@@ -61,10 +63,26 @@ class _AddStockAndPatternsState extends State<AddStockAndPatterns> {
           elevation: 4.0,
           icon: const Icon(Icons.add),
           label: const Text('Add Stock With Patterns'),
-          onPressed: () {},
+          onPressed: savePatterns,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
+
+  void savePatterns() async{
+    //print(selectedPatterns.values);
+    List<String> selectedPatterns = [];
+    for(int i = 0; i < patternsValues.values.length; i++){
+      if(patternsValues.values.elementAt(i) == true){
+        selectedPatterns.add(patternsValues.keys.elementAt(i));
+      }
+    }
+    //print(selectedPatterns);
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    Firestore.instance.collection('users').document(user.uid).updateData({
+      'selectedPatterns': selectedPatterns
+    });
+  }
+
 }

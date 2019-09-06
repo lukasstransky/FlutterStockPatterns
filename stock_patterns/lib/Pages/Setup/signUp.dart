@@ -62,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 .createUserWithEmailAndPassword(email: _email, password: _password))
             .user;
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
-        Firestore.instance.collection('users').document().setData({'email': _email});
+        Firestore.instance.collection('users').document(user.uid).setData({'email': _email});
       } catch (e) {
         print(e.message);
       }
