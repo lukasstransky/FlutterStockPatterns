@@ -6,12 +6,31 @@ class AddStockAndPatterns extends StatefulWidget {
 }
 
 class _AddStockAndPatternsState extends State<AddStockAndPatterns> {
+  String dropdownValue = 'AAPL';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-         title: Text('add Stock & Patterns'),
-       ),
-    );
+        appBar: AppBar(
+          title: Text('add Stock & Patterns'),
+        ),
+        body: Align(
+          alignment: Alignment.topCenter,
+          child: DropdownButton<String>(
+            value: dropdownValue,
+            onChanged: (String newValue) {
+              setState(() {
+                dropdownValue = newValue;
+              });
+            },
+            items: <String>['AAPL', 'TSLA', 'FB', 'GOOGL']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ));
   }
 }
