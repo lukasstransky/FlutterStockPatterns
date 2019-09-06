@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class AddStockAndPatterns extends StatefulWidget {
   @override
@@ -70,19 +71,34 @@ class _AddStockAndPatternsState extends State<AddStockAndPatterns> {
     );
   }
 
-  void savePatterns() async{
-    //print(selectedPatterns.values);
-    List<String> selectedPatterns = [];
-    for(int i = 0; i < patternsValues.values.length; i++){
-      if(patternsValues.values.elementAt(i) == true){
-        selectedPatterns.add(patternsValues.keys.elementAt(i));
-      }
-    }
-    //print(selectedPatterns);
+  void savePatterns() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    Firestore.instance.collection('users').document(user.uid).updateData({
-      'selectedPatterns': selectedPatterns
+    DocumentReference ref =
+        Firestore.instance.collection('users').document(user.uid);
+    ref.get().then((datasnapshot) {
+      if (datasnapshot.exists) {
+        var map = datasnapshot.data['selectedSharesWithPatterns'];
+        if (map == null) {
+          map = {};
+        }
+
+        List<String> selectedPatterns = [];
+        for (int i = 0; i < patternsValues.values.length; i++) {
+          if (patternsValues.values.elementAt(i) == true) {
+            selectedPatterns.add(patternsValues.keys.elementAt(i));
+          }
+        }
+
+        if (!map.containsKey(dropdownValue)) {
+          map[dropdownValue] = selectedPatterns;
+          Firestore.instance.collection('users').document(user.uid).updateData(
+              {'selectedSharesWithPatterns': map});
+        } else {
+          print("Aktie wurde schon mal ausgewählt");
+        }
+      } else {
+        print("user does not exist");
+      }
     });
   }
-
 }
