@@ -30,7 +30,8 @@ class _HomeState extends State<Home> {
                 Map map =
                     snapshot.data.documents[0]['selectedSharesWithPatterns'];
                 return Container(
-                  margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30),
+                  margin:
+                      const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
                   child: ListView.builder(
                     itemCount: map.length,
                     itemBuilder: (context, index) {
@@ -39,13 +40,29 @@ class _HomeState extends State<Home> {
                           map.values.elementAt(index).length.toString();
                       return Container(
                         height: 40,
-                        padding: const EdgeInsets.only(bottom: 5),
                         child: Card(
-                          color: Colors.blue[100],
-                          elevation: 5,
-                          child: Center(
-                              child: Text("$share $amountOfPatterns Muster")),
-                        ),
+                            color: Colors.blue[100],
+                            elevation: 5,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text("$share $amountOfPatterns Muster"),
+                                Row(
+                                  children: <Widget>[
+                                    IconButton(
+                                      icon: Icon(Icons.edit),
+                                      tooltip: 'add/delete patterns',
+                                      onPressed: (){},
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.delete),
+                                      tooltip: 'delete share with patterns',
+                                      onPressed: (){},
+                                    )
+                                  ],
+                                )
+                              ],
+                            )),
                       );
                     },
                   ),
@@ -61,7 +78,7 @@ class _HomeState extends State<Home> {
           elevation: 4.0,
           icon: const Icon(Icons.add),
           label: const Text('Add Stock With Patterns'),
-          onPressed: navigateToAddStockAndPatterns,
+          onPressed: () {},
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
