@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stock_patterns/Pages/addStockAndPatterns.dart';
+import 'package:stock_patterns/Pages/edit.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key, @required this.user}) : super(key: key);
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
                                     IconButton(
                                       icon: Icon(Icons.edit),
                                       tooltip: 'add/delete patterns',
-                                      onPressed: () {},
+                                      onPressed: navigateToEditPage,
                                     ),
                                     IconButton(
                                       icon: Icon(Icons.delete),
@@ -99,5 +100,10 @@ class _HomeState extends State<Home> {
   void navigateToAddStockAndPatterns() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => AddStockAndPatterns()));
+  }
+
+  void navigateToEditPage() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => EditPage()));
   }
 }
