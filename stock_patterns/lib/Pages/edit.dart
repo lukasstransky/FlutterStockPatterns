@@ -14,6 +14,20 @@ class _EditPageState extends State<EditPage> {
        appBar: AppBar(
          title: Text("${widget.share}"),
        ),
+       body: Column(
+         
+       ),
+       floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: FloatingActionButton.extended(
+          elevation: 4.0,
+          icon: const Icon(Icons.delete),
+          label: const Text('Delete'),
+          backgroundColor: Colors.red,
+          onPressed: (){},
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
