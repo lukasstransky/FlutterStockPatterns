@@ -39,25 +39,36 @@ class _HomeState extends State<Home> {
                       String amountOfPatterns =
                           map.values.elementAt(index).length.toString();
                       return Container(
-                        height: 40,
+                        height: 50,
                         child: Card(
                             color: Colors.blue[100],
                             elevation: 5,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text("$share $amountOfPatterns Muster"),
+                                Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: 90,
+                                      child: Text(
+                                        "$share",
+                                        style: TextStyle(fontSize: 20.0),
+                                      ),
+                                    ),
+                                    Text("$amountOfPatterns Muster"),
+                                  ],
+                                ),
                                 Row(
                                   children: <Widget>[
                                     IconButton(
                                       icon: Icon(Icons.edit),
                                       tooltip: 'add/delete patterns',
-                                      onPressed: (){},
+                                      onPressed: () {},
                                     ),
                                     IconButton(
                                       icon: Icon(Icons.delete),
                                       tooltip: 'delete share with patterns',
-                                      onPressed: (){},
+                                      onPressed: () {},
                                     )
                                   ],
                                 )
