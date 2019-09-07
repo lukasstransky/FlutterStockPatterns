@@ -65,7 +65,7 @@ class _AddStockAndPatternsState extends State<AddStockAndPatterns> {
         child: FloatingActionButton.extended(
           elevation: 4.0,
           icon: const Icon(Icons.add),
-          label: const Text('Add Stock With Patterns'),
+          label: const Text('Add'),
           onPressed: savePatterns,
         ),
       ),

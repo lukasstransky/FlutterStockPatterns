@@ -12,56 +12,60 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  /*Widget _buildList(BuildContext context,  ) {
-    /*return Row(
-      children: <Widget>[
-        Text(document[''])
-      ],
-    )*/
-    print("*****************************");
-    print(document);
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Home ${widget.user.email}'),
-        ),
-        body: Column(
-          children: <Widget>[
-            RaisedButton(
-              onPressed: navigateToAddStockAndPatterns,
-              child: Text('add Stock & Patterns'),
-            ),
-            Expanded(
-              child: StreamBuilder(
-                stream: Firestore.instance.collection('users').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Text("Loading...");
-                  }
-                  Map map =
-                      snapshot.data.documents[0]['selectedSharesWithPatterns'];
-                  return ListView.builder(
-                    itemExtent: 35.0,
+      appBar: AppBar(
+        title: Text('Home ${widget.user.email}'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: StreamBuilder(
+              stream: Firestore.instance.collection('users').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Text("Loading...");
+                }
+                Map map =
+                    snapshot.data.documents[0]['selectedSharesWithPatterns'];
+                return Container(
+                  margin: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30),
+                  child: ListView.builder(
                     itemCount: map.length,
                     itemBuilder: (context, index) {
                       String share = map.keys.elementAt(index).toString();
                       String amountOfPatterns =
                           map.values.elementAt(index).length.toString();
-                      return Row(
-                        children: <Widget>[
-                          Text("$share $amountOfPatterns Muster")
-                        ],
+                      return Container(
+                        height: 40,
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Card(
+                          color: Colors.blue[100],
+                          elevation: 5,
+                          child: Center(
+                              child: Text("$share $amountOfPatterns Muster")),
+                        ),
                       );
                     },
-                  );
-                },
-              ),
-            )
-          ],
-        ));
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: FloatingActionButton.extended(
+          elevation: 4.0,
+          icon: const Icon(Icons.add),
+          label: const Text('Add Stock With Patterns'),
+          onPressed: navigateToAddStockAndPatterns,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 
   void navigateToAddStockAndPatterns() {
