@@ -92,16 +92,18 @@ class _AddStockAndPatternsState extends State<AddStockAndPatterns> {
 
         if (!map.containsKey(dropdownValue)) {
           map[dropdownValue] = selectedPatterns;
-          Firestore.instance.collection('users').document(user.uid).updateData(
-              {'selectedSharesWithPatterns': map});
+          Firestore.instance
+              .collection('users')
+              .document(user.uid)
+              .updateData({'selectedSharesWithPatterns': map});
         } else {
           print("Aktie wurde schon mal ausgewählt");
         }
       } else {
         print("user does not exist");
       }
-      Navigator.push(context,
-        MaterialPageRoute(builder: (context) => Home(user: user)));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Home(user: user)));
     });
   }
 }

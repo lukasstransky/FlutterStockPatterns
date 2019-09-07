@@ -11,6 +11,21 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
+  Map<String, bool> patternsValues = {
+    'Muster 1': false,
+    'Muster 2': false,
+    'Muster 3': false
+  };
+  Map map;
+  @override
+  void initState() {
+    getMapFromFirestore().then((result) {
+      print(result);
+      map = result;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +47,7 @@ class _EditPageState extends State<EditPage> {
     );
   }
 
-  void deleteStockWithPatterns() async{
+  void deleteStockWithPatterns() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     DocumentReference ref =
         Firestore.instance.collection('users').document(user.uid);
@@ -51,5 +66,22 @@ class _EditPageState extends State<EditPage> {
             context, MaterialPageRoute(builder: (context) => Home(user: user)));
       }
     });
+  }
+
+  Future<Map> getMapFromFirestore() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    DocumentReference ref =
+        Firestore.instance.collection('users').document(user.uid);
+    Map result;
+    await ref.get().then((datasnapshot) {
+      if (datasnapshot.exists) {
+        var map = datasnapshot.data['selectedSharesWithPatterns'];
+        if (map == null) {
+          map = {};
+        }
+        result = map;
+      }
+    });
+    return result;
   }
 }
