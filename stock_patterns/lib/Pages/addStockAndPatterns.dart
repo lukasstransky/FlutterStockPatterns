@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
+import 'package:stock_patterns/Pages/home.dart';
+
 class AddStockAndPatterns extends StatefulWidget {
   @override
   _AddStockAndPatternsState createState() => _AddStockAndPatternsState();
@@ -99,6 +101,8 @@ class _AddStockAndPatternsState extends State<AddStockAndPatterns> {
       } else {
         print("user does not exist");
       }
+      Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Home(user: user)));
     });
   }
 }

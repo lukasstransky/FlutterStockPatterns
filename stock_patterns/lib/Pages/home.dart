@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
                   Map map =
                       snapshot.data.documents[0]['selectedSharesWithPatterns'];
                   return ListView.builder(
-                    itemExtent: 80.0,
+                    itemExtent: 35.0,
                     itemCount: map.length,
                     itemBuilder: (context, index) {
                       String share = map.keys.elementAt(index).toString();
