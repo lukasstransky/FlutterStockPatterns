@@ -30,55 +30,44 @@ class _HomeState extends State<Home> {
                 }
                 Map map =
                     snapshot.data.documents[0]['selectedSharesWithPatterns'];
-                return Container(
-                  margin:
-                      const EdgeInsets.only(left: 30.0, right: 30.0, top: 30.0),
-                  child: ListView.builder(
-                    itemCount: map.length,
-                    itemBuilder: (context, index) {
-                      String share = map.keys.elementAt(index).toString();
-                      String amountOfPatterns =
-                          map.values.elementAt(index).length.toString();
-                      return Container(
-                        height: 50,
-                        child: Card(
+                if (map != null) {
+                  return Container(
+                    margin: const EdgeInsets.only(
+                        left: 30.0, right: 30.0, top: 30.0),
+                    child: ListView.builder(
+                      itemCount: map.length,
+                      itemBuilder: (context, index) {
+                        String share = map.keys.elementAt(index).toString();
+                        String amountOfPatterns =
+                            map.values.elementAt(index).length.toString();
+                        return Container(
+                          height: 50,
+                          child: Card(
                             color: Colors.blue[100],
                             elevation: 5,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: 90,
-                                      child: Text(
-                                        "$share",
-                                        style: TextStyle(fontSize: 20.0),
-                                      ),
-                                    ),
-                                    Text("$amountOfPatterns Muster"),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    IconButton(
-                                      icon: Icon(Icons.edit),
-                                      tooltip: 'add/delete patterns',
-                                      onPressed: navigateToEditPage,
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.delete),
-                                      tooltip: 'delete share with patterns',
-                                      onPressed: () {},
-                                    )
-                                  ],
-                                )
-                              ],
-                            )),
-                      );
-                    },
-                  ),
-                );
+                            child: ListTile(
+                              leading: SizedBox(
+                                  width: 90,
+                                  child: Text(
+                                    "$share",
+                                    style: TextStyle(fontSize: 20.0),
+                                  )),
+                              title: Text("$amountOfPatterns Muster"),
+                              trailing: IconButton(
+                                icon: Icon(Icons.edit),
+                                tooltip: 'add/delete patterns',
+                                onPressed: () => navigateToEditPage(share),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                } else {
+                  return Container(
+                      child: Text("keine Aktien mit Mustern ausgewählt"));
+                }
               },
             ),
           )
@@ -90,7 +79,7 @@ class _HomeState extends State<Home> {
           elevation: 4.0,
           icon: const Icon(Icons.add),
           label: const Text('Add Stock With Patterns'),
-          onPressed: () {},
+          onPressed: navigateToAddStockAndPatterns,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -102,8 +91,8 @@ class _HomeState extends State<Home> {
         MaterialPageRoute(builder: (context) => AddStockAndPatterns()));
   }
 
-  void navigateToEditPage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => EditPage()));
+  void navigateToEditPage(String share) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => EditPage(share: share)));
   }
 }
