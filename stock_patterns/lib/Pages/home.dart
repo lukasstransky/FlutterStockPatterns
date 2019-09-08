@@ -93,6 +93,6 @@ class _HomeState extends State<Home> {
 
   void navigateToEditPage(String share) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EditPage(share: share)));
+        context, MaterialPageRoute(builder: (context) => EditPage(share: share, user: widget.user)));
   }
 }
